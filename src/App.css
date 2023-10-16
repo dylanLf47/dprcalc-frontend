@@ -36,3 +36,113 @@
     transform: rotate(360deg);
   }
 }
+
+.input-selector{
+  border: 0;
+  outline: 0;
+  background-color: white;
+}
+.diceAmount{
+  width: 10%;
+}
+.multi-selector{
+  width: max-content;
+}
+.select-field{
+  border: 1px solid black
+}
+.select-field,.diceProperty,.list{
+  background-color: white;
+}
+.list{
+  box-shadow: 0 30px 60px rgb(0,0,0,0.2);
+}
+.listShow{
+  display: block;
+  box-shadow: 0 30px 60px rgb(0,0,0,0.2);
+}
+.down-arrow{
+  font-size: 1.2rem;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+.diceProperty{
+  display: block;
+  padding-left: 0;
+}
+.show{
+  display: block;
+}
+
+.rotate180{
+  transform: rotate(-60deg);
+}
+
+div.inline{
+  float: left;
+}
+
+#standardDiceList{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#firstHitDiceList{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#criticalDiceList{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#standardDiceListBonus{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#criticalDiceListBonus{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#characterList{
+  height: 100%;
+}
+
+#dprField{
+  right:35%;
+  width: 65%;
+  height: 100%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 2;
+  gap: 10px;
+  grid-template-rows: 5;
+  padding: 20px
+}
+
+#addToListButton{
+  grid-column: 1;
+  grid-row: 1;
+}
+#characterList{
+  grid-column: 1;
+  grid-row: 2/5;
+}
+.acInput{
+  grid-column: 2;
+  grid-row: 1;
+}
+#calculateButton{
+  grid-column: 2;
+  grid-row: 2;
+}
+#dprField{
+  grid-column: 2;
+  grid-row: 3/5;
+}
