@@ -1,16 +1,16 @@
 .App {
   text-align: center;
+  background-image: url(./images/background.jpg);
+  background-position: center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -28,13 +28,51 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#name{
+  width: 8%;
+}
+
+#description{
+  width: 12%;
+}
+
+button{
+  background-color: rgb(0,0,0,0.75);
+  border: 1px solid black;
+  color: white;
+  /* cursor: pointer; */
+}
+
+button:enabled:hover{
+  background-color: rgb(0,0,0,0.50);
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled{
+  opacity: 50%;
+}
+
+.errorBorder{
+  border: 2px solid red;
+}
+
+.errorBorderInput{
+  width: 3%;
+  border: 2px solid red;
+}
+
+.input{
+  width: 3%;
+}
+
+.errorBorderDiceMod{
+  width: 30%;
+  border: 2px solid red;
+}
+
+.diceMod{
+  width: 30%;
 }
 
 .input-selector{
@@ -44,6 +82,10 @@
 }
 .diceAmount{
   width: 10%;
+}
+.errorBorderDiceAmount{
+  width: 10%;
+  border: 2px solid red;
 }
 .multi-selector{
   width: max-content;
@@ -56,6 +98,7 @@
 }
 .list{
   box-shadow: 0 30px 60px rgb(0,0,0,0.2);
+  position: absolute;
 }
 .listShow{
   display: block;
@@ -79,6 +122,10 @@
   transform: rotate(-60deg);
 }
 
+.deleteDiceButton{
+  background-color: rgba(197, 3, 3, 0.65);
+}
+
 div.inline{
   float: left;
 }
@@ -86,63 +133,110 @@ div.inline{
 #standardDiceList{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 5%;
 }
 
 #firstHitDiceList{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 5%;
 }
 
 #criticalDiceList{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 5%;
 }
 
 #standardDiceListBonus{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 5%;
 }
 
 #criticalDiceListBonus{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 5%;
 }
 
-#characterList{
-  height: 100%;
+.bottomHalf{
+  display: flex;
 }
 
-#dprField{
-  right:35%;
+.pcMap{
+  /* border: 1px solid black; */
+  height: 500px;
+  width: 20%;
+  margin-left: 5%;
+  box-shadow: 1px 1px 10px 0px black; 
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+  /* white-space: nowrap; */
+}
+
+.pcRow{
+  display:flex; 
+  flex-direction:row;
+  border: 1px solid black;
+}
+
+.pcInfo{
+  overflow: auto;
+  white-space: nowrap; 
+  text-align: left;  
   width: 65%;
+}
+
+.calcCheck{
+  /* margin-left: 50%; */
+  width: 5%;
+  /*margin-right: 25%;*/
+}
+
+.deletePc{
+  margin-left: 15%;
+  margin-top: 10.45%;
+  height: 20%;
+  width: 5%;
+  background-color: rgba(197, 3, 3, 0.65);
+  /* text-align: center;  */
+}
+
+/* .pcInfo{
+  float: left;
+} */
+
+.calcDiv{
+  /* border: 1px solid black; */
+  height: 450px;
+  width: 50%;
+  display: inline-block;
+  margin-left: 1.5%;
+}
+
+table{
+  border-spacing: 25px 20px;
+}
+
+.dprField{
+  border: 1px solid black;
+  width: 100%;
   height: 100%;
+  overflow: auto;
+  white-space: nowrap; 
+  text-align: left;
+  font-size: xx-large;
+  box-shadow: 1px 1px 10px 0px black;
+  justify-content: space-evenly;
+  /* display: inline-block; */
 }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: 2;
-  gap: 10px;
-  grid-template-rows: 5;
-  padding: 20px
-}
-
-#addToListButton{
-  grid-column: 1;
-  grid-row: 1;
-}
-#characterList{
-  grid-column: 1;
-  grid-row: 2/5;
-}
-.acInput{
-  grid-column: 2;
-  grid-row: 1;
-}
-#calculateButton{
-  grid-column: 2;
-  grid-row: 2;
-}
-#dprField{
-  grid-column: 2;
-  grid-row: 3/5;
+.inputPrompt{
+  position: absolute;
+  background-color: rgb(0,0,0,0.85);
+  border: 1px solid gray;
+  color: white;
+  width: 8%;
 }
