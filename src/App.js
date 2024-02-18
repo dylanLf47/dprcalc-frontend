@@ -261,6 +261,77 @@ function Calc() {
 
     const [dprFieldArray, setDprFieldArray] = useState("")
 
+    const updateGwfChecked = () => {
+        for (let i = 0; i < standardDiceData.length; i++) {
+            standardDiceData[i].is_gwf = !gwfChecked
+        }
+        for (let i = 0; i < firstHitDiceData.length; i++) {
+            firstHitDiceData[i].is_gwf = !gwfChecked
+        }
+        for (let i = 0; i < criticalDiceData.length; i++) {
+            criticalDiceData[i].is_gwf = !gwfChecked
+        }
+        setGwfChecked(!gwfChecked)
+    }
+
+    const updateEaChecked = () => {
+        for (let i = 0; i < standardDiceData.length; i++) {
+            standardDiceData[i].is_ea = !eaChecked
+        }
+        for (let i = 0; i < firstHitDiceData.length; i++) {
+            firstHitDiceData[i].is_ea = !eaChecked
+        }
+        for (let i = 0; i < criticalDiceData.length; i++) {
+            criticalDiceData[i].is_ea = !eaChecked
+        }
+        setEaChecked(!eaChecked)
+    }
+
+    const updateSaChecked = () => {
+        for (let i = 0; i < standardDiceData.length; i++) {
+            standardDiceData[i].is_sa = !saChecked
+        }
+        for (let i = 0; i < firstHitDiceData.length; i++) {
+            firstHitDiceData[i].is_sa = !saChecked
+        }
+        for (let i = 0; i < criticalDiceData.length; i++) {
+            criticalDiceData[i].is_sa = !saChecked
+        }
+        setSaChecked(!saChecked)
+    }
+
+    const updateGwfCheckedBonus = () => {
+        for (let i = 0; i < standardDiceBonusData.length; i++) {
+            standardDiceBonusData[i].is_gwf = !gwfCheckedBonus
+        }
+        for (let i = 0; i < criticalDiceBonusData.length; i++) {
+            criticalDiceBonusData[i].is_gwf = !gwfCheckedBonus
+        }
+        setGwfCheckedBonus(!gwfCheckedBonus)
+    }
+
+    const updateEaCheckedBonus = () => {
+        for (let i = 0; i < standardDiceBonusData.length; i++) {
+            standardDiceBonusData[i].is_ea = !eaCheckedBonus
+        }
+        for (let i = 0; i < criticalDiceBonusData.length; i++) {
+            criticalDiceBonusData[i].is_ea = !eaCheckedBonus
+        }
+        setEaCheckedBonus(!eaCheckedBonus)
+    }
+
+    const updateSaCheckedBonus = () => {
+        for (let i = 0; i < standardDiceBonusData.length; i++) {
+            standardDiceBonusData[i].is_sa = !saCheckedBonus
+        }
+        for (let i = 0; i < criticalDiceBonusData.length; i++) {
+            criticalDiceBonusData[i].is_sa = !saCheckedBonus
+        }
+        setSaCheckedBonus(!saCheckedBonus)
+    }
+
+    /////////////////
+    /////////////////
     const updateDiceParam = (param) => {
         if (param === "gwfChecked") {
             for (let i = 0; i < standardDiceData.length; i++) {
@@ -325,6 +396,58 @@ function Calc() {
             }
             setSaCheckedBonus(!saCheckedBonus)
         }
+    }
+    ///////////////////////////
+    ///////////////////////////
+
+    const updateStandardDice = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
+        let temp = JSON.parse(JSON.stringify(standardDiceData))
+        temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
+        if (!theGwf) setGwfChecked(false)
+        if (!theEa) setEaChecked(false)
+        if (!theSa) setSaChecked(false)
+        console.log(temp)
+        setStandardDiceData(temp) 
+    }
+
+    const updateFirstHitDice = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
+        let temp = JSON.parse(JSON.stringify(firstHitDiceData))
+        temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
+        if (!theGwf) setGwfChecked(false)
+        if (!theEa) setEaChecked(false)
+        if (!theSa) setSaChecked(false)
+        console.log(temp)
+        setFirstHitDiceData(temp)
+    }
+
+    const updateCriticalDice = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
+        let temp = JSON.parse(JSON.stringify(criticalDiceData))
+        temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
+        if (!theGwf) setGwfChecked(false)
+        if (!theEa) setEaChecked(false)
+        if (!theSa) setSaChecked(false)
+        console.log(temp)
+        setCriticalDiceData(temp)
+    }
+
+    const updateStandardDiceBonus = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
+        let temp = JSON.parse(JSON.stringify(standardDiceBonusData))
+        temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
+        if (!theGwf) setGwfCheckedBonus(false)
+        if (!theEa) setEaCheckedBonus(false)
+        if (!theSa) setSaCheckedBonus(false)
+        console.log(temp)
+        setStandardDiceBonusData(temp)
+    }
+
+    const updateCriticalDiceBonus = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
+        let temp = JSON.parse(JSON.stringify(criticalDiceBonusData))
+        temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
+        if (!theGwf) setGwfCheckedBonus(false)
+        if (!theEa) setEaCheckedBonus(false)
+        if (!theSa) setSaCheckedBonus(false)
+        console.log(temp)
+        setCriticalDiceBonusData(temp)
     }
 
     //UPDATE CODE FOR NO IF STATEMENTS
@@ -700,9 +823,9 @@ function Calc() {
                     <b>Critical Hit Range:</b> {pc.crit_range}<br/>
                     <b>No. of Attacks:</b> {pc.num_of_attacks}<br/>
                     {pc.has_adv && <div>Advatange<br/></div>}
-                    {pc.standard_die_list.length > 0 && <div><b>Standard Damage Dice:</b> {pc.standard_die_list.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + " GWF? " + dice.is_gwf + " EA? " + dice.is_ea + " SA? " + dice.is_sa + "}")}<br/></div>}
-                    {pc.first_hit_die_list.length > 0 && <div><b>First Hit Dice:</b> {pc.first_hit_die_list.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + " GWF? " + dice.is_gwf + " EA? " + dice.is_ea + " SA? " + dice.is_sa + "}")}<br/></div>}
-                    {pc.crit_die_list.length > 0 && <div><b>Critical Hit Dice:</b> {pc.crit_die_list.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + " GWF? " + dice.is_gwf + " EA? " + dice.is_ea + " SA? " + dice.is_sa + "}")}<br/></div>}
+                    {pc.standard_die_list.length > 0 && <div><b>Standard Damage Dice:</b> {pc.standard_die_list.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + /* " GWF? " + dice.is_gwf + " EA? " + dice.is_ea + " SA? " + dice.is_sa + "}")}<br/></div>} */ (dice.is_gwf ? ", GWF" : "") + (dice.is_ea ? ", EA" : "") + (dice.is_sa ? ", SA" : "") + "}")}<br/></div>}
+                    {pc.first_hit_die_list.length > 0 && <div><b>First Hit Dice:</b> {pc.first_hit_die_list.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + (dice.is_gwf ? ", GWF" : "") + (dice.is_ea ? ", EA" : "") + (dice.is_sa ? ", SA" : "") + "}")}<br/></div>}
+                    {pc.crit_die_list.length > 0 && <div><b>Critical Hit Dice:</b> {pc.crit_die_list.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + (dice.is_gwf ? ", GWF" : "") + (dice.is_ea ? ", EA" : "") + (dice.is_sa ? ", SA" : "") + "}")}<br/></div>}
                     {pc.gwm_check && <div>Great Weapon Master<br/></div>}
                     {pc.lucky_check && <div>Lucky<br/></div>}
                     {pc.elven_acc_check && <div>elven_acc_check<br/></div>}
@@ -718,8 +841,8 @@ function Calc() {
                     <b>Attack Modifier:</b> {pc.attack_mod_bonus}<br/>
                     <b>No. of Attacks:</b> {pc.num_of_attacks_bonus}<br/>
                     {pc.has_adv_bonus && <div>Advatange<br/></div>}
-                    {pc.standard_die_list_bonus.length > 0 && <div><b>Standard Damage Dice:</b> {pc.standard_die_list_bonus.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + " GWF? " + dice.is_gwf + " EA? " + dice.is_ea + " SA? " + dice.is_sa + "}")}<br/><br/></div>}
-                    {pc.crit_die_list_bonus.length > 0 && <div><b>Critical Hit Dice:</b> {pc.crit_die_list_bonus.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + " GWF? " + dice.is_gwf + " EA? " + dice.is_ea + " SA? " + dice.is_sa + "}")}<br/><br/></div>}
+                    {pc.standard_die_list_bonus.length > 0 && <div><b>Standard Damage Dice:</b> {pc.standard_die_list_bonus.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + (dice.is_gwf ? ", GWF" : "") + (dice.is_ea ? ", EA" : "") + (dice.is_sa ? ", SA" : "") + "}")}<br/></div>}
+                    {pc.crit_die_list_bonus.length > 0 && <div><b>Critical Hit Dice:</b> {pc.crit_die_list_bonus.map((dice) => "{" + dice.dice_amount + "d" + dice.die_num + (dice.is_gwf ? ", GWF" : "") + (dice.is_ea ? ", EA" : "") + (dice.is_sa ? ", SA" : "") + "}")}<br/></div>}
                     {pc.crusher_check_bonus && <div>Crusher<br/></div>}
                     {pc.piercer_check_bonus && <div>Piercer; Reroll d{pc.piercer_die_bonus} when rolled at or below {pc.piercer_reroll_bonus}<br/></div>}
                     {pc.stalkers_flurry_check_bonus && <div>Stalker's Flurry<br/></div>}
