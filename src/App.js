@@ -330,82 +330,10 @@ function Calc() {
         setSaCheckedBonus(!saCheckedBonus)
     }
 
-    /////////////////
-    /////////////////
-    const updateDiceParam = (param) => {
-        if (param === "gwfChecked") {
-            for (let i = 0; i < standardDiceData.length; i++) {
-                standardDiceData[i].is_gwf = !gwfChecked
-            }
-            for (let i = 0; i < firstHitDiceData.length; i++) {
-                firstHitDiceData[i].is_gwf = !gwfChecked
-            }
-            for (let i = 0; i < criticalDiceData.length; i++) {
-                criticalDiceData[i].is_gwf = !gwfChecked
-            }
-            setGwfChecked(!gwfChecked)
-        }
-        else if (param === "eaChecked") {
-            for (let i = 0; i < standardDiceData.length; i++) {
-                standardDiceData[i].is_ea = !eaChecked
-            }
-            for (let i = 0; i < firstHitDiceData.length; i++) {
-                firstHitDiceData[i].is_ea = !eaChecked
-            }
-            for (let i = 0; i < criticalDiceData.length; i++) {
-                criticalDiceData[i].is_ea = !eaChecked
-            }
-            setEaChecked(!eaChecked)
-        }
-        else if (param === "saChecked") {
-            for (let i = 0; i < standardDiceData.length; i++) {
-                standardDiceData[i].is_sa = !saChecked
-            }
-            for (let i = 0; i < firstHitDiceData.length; i++) {
-                firstHitDiceData[i].is_sa = !saChecked
-            }
-            for (let i = 0; i < criticalDiceData.length; i++) {
-                criticalDiceData[i].is_sa = !saChecked
-            }
-            setSaChecked(!saChecked)
-        }
-        else if (param === "gwfCheckedBonus") {
-            for (let i = 0; i < standardDiceBonusData.length; i++) {
-                standardDiceBonusData[i].is_gwf = !gwfCheckedBonus
-            }
-            for (let i = 0; i < criticalDiceBonusData.length; i++) {
-                criticalDiceBonusData[i].is_gwf = !gwfCheckedBonus
-            }
-            setGwfCheckedBonus(!gwfCheckedBonus)
-        }
-        else if (param === "eaCheckedBonus") {
-            for (let i = 0; i < standardDiceBonusData.length; i++) {
-                standardDiceBonusData[i].is_ea = !eaCheckedBonus
-            }
-            for (let i = 0; i < criticalDiceBonusData.length; i++) {
-                criticalDiceBonusData[i].is_ea = !eaCheckedBonus
-            }
-            setEaCheckedBonus(!eaCheckedBonus)
-        }
-        else if (param === "saCheckedBonus") {
-            for (let i = 0; i < standardDiceBonusData.length; i++) {
-                standardDiceBonusData[i].is_sa = !saCheckedBonus
-            }
-            for (let i = 0; i < criticalDiceBonusData.length; i++) {
-                criticalDiceBonusData[i].is_sa = !saCheckedBonus
-            }
-            setSaCheckedBonus(!saCheckedBonus)
-        }
-    }
-    ///////////////////////////
-    ///////////////////////////
-
     const updateStandardDice = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
         let temp = JSON.parse(JSON.stringify(standardDiceData))
         temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-        if (!theGwf) setGwfChecked(false)
-        if (!theEa) setEaChecked(false)
-        if (!theSa) setSaChecked(false)
+        updateDiceParam(theGwf, theEa, theSa)
         console.log(temp)
         setStandardDiceData(temp) 
     }
@@ -413,9 +341,7 @@ function Calc() {
     const updateFirstHitDice = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
         let temp = JSON.parse(JSON.stringify(firstHitDiceData))
         temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-        if (!theGwf) setGwfChecked(false)
-        if (!theEa) setEaChecked(false)
-        if (!theSa) setSaChecked(false)
+        updateDiceParam(theGwf, theEa, theSa)
         console.log(temp)
         setFirstHitDiceData(temp)
     }
@@ -423,9 +349,7 @@ function Calc() {
     const updateCriticalDice = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
         let temp = JSON.parse(JSON.stringify(criticalDiceData))
         temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-        if (!theGwf) setGwfChecked(false)
-        if (!theEa) setEaChecked(false)
-        if (!theSa) setSaChecked(false)
+        updateDiceParam(theGwf, theEa, theSa)
         console.log(temp)
         setCriticalDiceData(temp)
     }
@@ -433,9 +357,7 @@ function Calc() {
     const updateStandardDiceBonus = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
         let temp = JSON.parse(JSON.stringify(standardDiceBonusData))
         temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-        if (!theGwf) setGwfCheckedBonus(false)
-        if (!theEa) setEaCheckedBonus(false)
-        if (!theSa) setSaCheckedBonus(false)
+        updateDiceParamBonus(theGwf, theEa, theSa)
         console.log(temp)
         setStandardDiceBonusData(temp)
     }
@@ -443,67 +365,21 @@ function Calc() {
     const updateCriticalDiceBonus = (id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
         let temp = JSON.parse(JSON.stringify(criticalDiceBonusData))
         temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-        if (!theGwf) setGwfCheckedBonus(false)
-        if (!theEa) setEaCheckedBonus(false)
-        if (!theSa) setSaCheckedBonus(false)
+        updateDiceParamBonus(theGwf, theEa, theSa)
         console.log(temp)
         setCriticalDiceBonusData(temp)
     }
 
-    //UPDATE CODE FOR NO IF STATEMENTS
-    //
-    //
-    //
-    // updateStandardDice, updateFirstHitDice, etc.
-    //
-    //
-    //
-    const updateDice = (diceList, id, theDiceAmount, theDiceNum, theGwf, theEa, theSa) => {
-        if (diceList === standardDiceData) {
-            let temp = JSON.parse(JSON.stringify(standardDiceData))
-            temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-            if (!theGwf) setGwfChecked(false)
-            if (!theEa) setEaChecked(false)
-            if (!theSa) setSaChecked(false)
-            console.log(temp)
-            setStandardDiceData(temp)
-        }
-        if (diceList === firstHitDiceData) {
-            let temp = JSON.parse(JSON.stringify(firstHitDiceData))
-            temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-            if (!theGwf) setGwfChecked(false)
-            if (!theEa) setEaChecked(false)
-            if (!theSa) setSaChecked(false)
-            console.log(temp)
-            setFirstHitDiceData(temp)
-        }
-        if (diceList === criticalDiceData) {
-            let temp = JSON.parse(JSON.stringify(criticalDiceData))
-            temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-            if (!theGwf) setGwfChecked(false)
-            if (!theEa) setEaChecked(false)
-            if (!theSa) setSaChecked(false)
-            console.log(temp)
-            setCriticalDiceData(temp)
-        }
-        if (diceList === standardDiceBonusData) {
-            let temp = JSON.parse(JSON.stringify(standardDiceBonusData))
-            temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-            if (!theGwf) setGwfCheckedBonus(false)
-            if (!theEa) setEaCheckedBonus(false)
-            if (!theSa) setSaCheckedBonus(false)
-            console.log(temp)
-            setStandardDiceBonusData(temp)
-        }
-        if (diceList === criticalDiceBonusData) {
-            let temp = JSON.parse(JSON.stringify(criticalDiceBonusData))
-            temp.map((dice) => dice.dice_id === id ? [dice.dice_amount = theDiceAmount, dice.die_num = theDiceNum, dice.is_gwf = theGwf, dice.is_ea = theEa, dice.is_sa = theSa] : dice)
-            if (!theGwf) setGwfCheckedBonus(false)
-            if (!theEa) setEaCheckedBonus(false)
-            if (!theSa) setSaCheckedBonus(false)
-            console.log(temp)
-            setCriticalDiceBonusData(temp)
-        }
+    const updateDiceParam = (theGwf, theEa, theSa) => {
+        if (!theGwf) setGwfChecked(false)
+        if (!theEa) setEaChecked(false)
+        if (!theSa) setSaChecked(false)
+    }
+
+    const updateDiceParamBonus = (theGwf, theEa, theSa) => {
+        if (!theGwf) setGwfCheckedBonus(false)
+        if (!theEa) setEaCheckedBonus(false)
+        if (!theSa) setSaCheckedBonus(false)
     }
 
     const addCharacter = (e) => {
@@ -635,7 +511,7 @@ function Calc() {
                 <b>Standard Damage Dice:</b>
                 <span id="addStandardDiceButton"><button onClick={() => clickAddStandardDice()}>+</button></span>
 
-                {standardDice.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateDice(standardDiceData, dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteStandardDice(dice.props.id)} 
+                {standardDice.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateStandardDice(dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteStandardDice(dice.props.id)} 
                 gwfIsChecked={standardDiceData[standardDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_gwf} eaIsChecked={standardDiceData[standardDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_ea} saIsChecked={standardDiceData[standardDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_sa} {...dice}/>)}
 
                 <span name="dMod">
@@ -648,7 +524,7 @@ function Calc() {
             <span id="firstHitDiceList">
                 <b>First Hit Dice:</b>
                 <span id="addFirstHitDiceButton"><button onClick={() => clickAddFirstHitDice()}>+</button></span>
-                {firstHitDice.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateDice(firstHitDiceData, dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteFirstHitDice(dice.props.id)} 
+                {firstHitDice.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateFirstHitDice(dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteFirstHitDice(dice.props.id)} 
                 gwfIsChecked={firstHitDiceData[firstHitDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_gwf} eaIsChecked={firstHitDiceData[firstHitDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_ea} saIsChecked={firstHitDiceData[firstHitDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_sa} {...dice}/>)}
                 <span name="dMod">
                     <b>+</b>
@@ -660,7 +536,7 @@ function Calc() {
             <span id="criticalDiceList">
                 <b>Critical Dice:</b>
                 <span id="addCriticalDiceButton"><button onClick={() => clickAddCriticalDice()}>+</button></span>
-                {criticalDice.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateDice(criticalDiceData, dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteCriticalDice(dice.props.id)} 
+                {criticalDice.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateCriticalDice(dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteCriticalDice(dice.props.id)} 
                 gwfIsChecked={criticalDiceData[criticalDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_gwf} eaIsChecked={criticalDiceData[criticalDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_ea} saIsChecked={criticalDiceData[criticalDiceData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_sa} {...dice}/>)}
                 <span name="dMod">
                 <b>+</b>
@@ -670,16 +546,16 @@ function Calc() {
             </span>
 
             <div>
-                <input type="checkbox" id="gwfCheck" checked={gwfChecked} onChange={() => updateDiceParam("gwfChecked")}></input>
+                <input type="checkbox" id="gwfCheck" checked={gwfChecked} onChange={() => updateGwfChecked()}></input>
                 <b>Great Weapon Fighting Style</b>
                 <span>&nbsp;</span>
                 <input type="checkbox" id="gwmCheck" checked={gwmCheck} onChange={() => setGwmCheck(!gwmCheck)}></input>
                 <b>Great Weapon Master Bonus Attack</b>
                 <span>&nbsp;</span>
-                <input type="checkbox" id="eaCheck" checked={eaChecked} onChange={() => updateDiceParam("eaChecked")}></input>
+                <input type="checkbox" id="eaCheck" checked={eaChecked} onChange={() => updateEaChecked()}></input>
                 <b>Elemental Adept</b>
                 <span>&nbsp;</span>
-                <input type="checkbox" id="saCheck" checked={saChecked} onChange={() => updateDiceParam("saChecked")}></input>
+                <input type="checkbox" id="saCheck" checked={saChecked} onChange={() => updateSaChecked()}></input>
                 <b>Savage Attacker</b>
                 <span>&nbsp;</span>
                 <input type="checkbox" id="luckyCheck" checked={luckyCheck} onChange={() => setLuckyCheck(!luckyCheck)}></input>
@@ -745,7 +621,7 @@ function Calc() {
             <span id="standardDiceListBonus">
                 <b>Standard Hit Dice:</b>
                 <span id="addStandardDiceButtonBonus"><button onClick={() => clickAddStandardDiceBonus()} disabled={!hasBonusAction}>+</button></span>
-                {standardDiceBonus.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateDice(standardDiceBonusData, dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteStandardDiceBonus(dice.props.id)} 
+                {standardDiceBonus.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateStandardDiceBonus(dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteStandardDiceBonus(dice.props.id)} 
                 gwfIsChecked={standardDiceBonusData[standardDiceBonusData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_gwf} eaIsChecked={standardDiceBonusData[standardDiceBonusData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_ea} saIsChecked={standardDiceBonusData[standardDiceBonusData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_sa} {...dice}/>)}
                 <span name="dMod">
                     <b>+</b>
@@ -757,7 +633,7 @@ function Calc() {
             <span id="criticalDiceListBonus">
                 <b>Critical Dice:</b>
                 <span id="addCriticalDiceButtonBonus"><button onClick={() => clickAddCriticalDiceBonus()} disabled={!hasBonusAction}>+</button></span>
-                {criticalDiceBonus.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateDice(criticalDiceBonusData, dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteCriticalDiceBonus(dice.props.id)} 
+                {criticalDiceBonus.map((dice) => <Dice update={(theDiceAmount, theDiceNum, theGwf, theEa, theSa) => updateCriticalDiceBonus(dice.props.id, theDiceAmount, theDiceNum, theGwf, theEa, theSa)} remove={() => clickDeleteCriticalDiceBonus(dice.props.id)} 
                 gwfIsChecked={criticalDiceBonusData[criticalDiceBonusData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_gwf} eaIsChecked={criticalDiceBonusData[criticalDiceBonusData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_ea} saIsChecked={criticalDiceBonusData[criticalDiceBonusData.findIndex((sDice) => sDice.dice_id === dice.props.id)].is_sa} {...dice}/>)}
                 <span name="dMod">
                     <b>+</b>
@@ -767,13 +643,13 @@ function Calc() {
             </span>
 
             <div>
-                <input type="checkbox" id="gwfCheckBonus" checked={gwfCheckedBonus} onChange={() => updateDiceParam("gwfCheckedBonus")} disabled={!hasBonusAction}></input>
+                <input type="checkbox" id="gwfCheckBonus" checked={gwfCheckedBonus} onChange={() => updateGwfCheckedBonus()} disabled={!hasBonusAction}></input>
                 <b>Great Weapon Fighting Style</b>
                 <span>&nbsp;</span>
-                <input type="checkbox" id="eaCheckBonus" checked={eaCheckedBonus} onChange={() => updateDiceParam("eaCheckedBonus")} disabled={!hasBonusAction}></input>
+                <input type="checkbox" id="eaCheckBonus" checked={eaCheckedBonus} onChange={() => updateEaCheckedBonus()} disabled={!hasBonusAction}></input>
                 <b>Elemental Adept</b>
                 <span>&nbsp;</span>
-                <input type="checkbox" id="saCheckBonus" checked={saCheckedBonus} onChange={() => updateDiceParam("saCheckedBonus")} disabled={!hasBonusAction}></input>
+                <input type="checkbox" id="saCheckBonus" checked={saCheckedBonus} onChange={() => updateSaCheckedBonus()} disabled={!hasBonusAction}></input>
                 <b>Savage Attacker</b>
                 <span>&nbsp;</span>
                 <input type="checkbox" id="crusherCheckBonus" checked={crusherCheckBonus} onChange={() => setCrusherCheckBonus(!crusherCheckBonus)} disabled={!hasBonusAction}></input>
