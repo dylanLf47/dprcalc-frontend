@@ -391,7 +391,7 @@ function Calc() {
                 crit_die_list_bonus: criticalDiceBonusData, crit_dam_mod_bonus: criticalDamageModBonus, crusher_check_bonus: crusherCheckBonus, piercer_check_bonus: piercerCheckBonus, piercer_die_bonus: piercerDieBonus, piercer_reroll_bonus: piercerRerollWhenBonus, 
                 stalkers_flurry_check_bonus: stalkersFlurryCheckBonus, graze_check_bonus: grazeCheckBonus, graze_mod_bonus: grazeModBonus, vex_check_bonus: vexCheckBonus}
         console.log(player_character)
-        fetch("http://localhost:8080/player_character/add",{
+        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/add",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(player_character)
@@ -403,7 +403,7 @@ function Calc() {
     }
 
     useEffect(() => {
-        fetch("http://localhost:8080/player_character/getAll")
+        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/getAll")
         .then(res=>res.json())
         .then(result => setCharactersList(result))
         return () => {
@@ -412,7 +412,7 @@ function Calc() {
     },[listLength]);
 
     const deleteCharacter = (id) => {
-        fetch("http://localhost:8080/player_character/remove/"+id,{
+        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/remove/"+id,{
             method:"DELETE",
             headers: {"Content-Type":"application/json"}
         }).then(() => {
@@ -445,7 +445,7 @@ function Calc() {
             tempArray[i+1] = Array(maxAC-minAC+1);
             tempArray[i+1][0] = <b>{pcList[i].name}</b>;
             for (let j = minAC; j <= maxAC; j++) {
-                const res = await fetch("http://localhost:8080/player_character/calc/" + pcList[i].id + "/" + j);
+                const res = await fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/calc/" + pcList[i].id + "/" + j);
                 const result = await res.json();
                 tempArray[i+1][j-minAC+1] = result;
             }
