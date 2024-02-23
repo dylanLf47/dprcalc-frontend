@@ -240,3 +240,21 @@ table{
   color: white;
   width: 8%;
 }
+
+.logInBox{
+  width: 15%;
+  scale: 175%;
+  margin-left: 42.5%;
+  margin-top: 12.5%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 10px 0px black;
+}
+
+.inputPromptLogIn{
+  position: absolute;
+  background-color: rgb(0,0,0,0.85);
+  border: 1px solid gray;
+  color: white;
+  width: 65%;
+}
