@@ -4,7 +4,7 @@ import './App.css';
 let i = 0;
 
 function LogIn({theLogIn, logInClick}) {
-    const [userID, setUserID] = useState('')
+    const [userID, setUserID] = useState("")
     const [userIdHover, setUserIDHover] = useState(false)
     const [invalidInput, setInvalidInput] = useState(true)
     const update = () => {
@@ -122,7 +122,9 @@ function Dice({update, remove, gwfIsChecked, eaIsChecked, saIsChecked}) {
       );
 }
 
-function Calc(userId) {
+function Calc({theUserId}) {
+    const [userId, setUserID] = useState(theUserId)
+    console.log(userId)
     const [name,setName] = useState('')
     const [description,setDescription] = useState('')
 
@@ -430,11 +432,15 @@ function Calc(userId) {
     }
 
     useEffect(() => {
-        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
-        .then(res=>res.json())
-        .then(result => setCharactersList(result))
-        return () => {
-            console.log("Character Data Returned")
+        try {
+            fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
+            .then(res=>res.json())
+            .then(result => setCharactersList(result))
+            return () => {
+                console.log("Character Data Returned")
+            }
+        } catch {
+
         }
     },[listLength, userId]);
 
@@ -804,7 +810,7 @@ function Calc(userId) {
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
-    const [currentUser, setCurrentUser] = useState('')
+    const [currentUser, setCurrentUser] = useState("")
     if (loggedIn === false) {
         return (
             <div className="App">
@@ -815,7 +821,7 @@ function App() {
     else {
         return (
         <div className="App">
-            <Calc userId = {currentUser}/>
+            <Calc theUserId = {currentUser}/>
         </div>
         );
     }
