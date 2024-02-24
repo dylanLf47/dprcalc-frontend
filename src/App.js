@@ -441,7 +441,7 @@ function Calc({theUserId}) {
     },[listLength, userId]); */
 
     useEffect(() => {
-        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/getAll")
+        fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/getAll")
         .then(res=>res.json())
         .then(result => setCharactersList(result))
         return () => {
@@ -450,7 +450,7 @@ function Calc({theUserId}) {
     },[listLength]);
 
     const deleteCharacter = (id) => {
-        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/remove/"+id,{
+        fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/remove/"+id,{
             method:"DELETE",
             headers: {"Content-Type":"application/json"}
         }).then(() => {
@@ -807,7 +807,7 @@ function Calc({theUserId}) {
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState("")
-    if (loggedIn === false) {
+    /* if (loggedIn === false) {
         return (
             <div className="App">
                 <LogIn theLogIn = {loggedIn} logInClick={(theLogIn, theUserId) => {setLoggedIn(!theLogIn); setCurrentUser(theUserId)}}/>
@@ -820,7 +820,12 @@ function App() {
             <Calc theUserId = {currentUser}/>
         </div>
         );
-    }
+    } */
+    return (
+        <div className="App">
+            <Calc theUserId = {currentUser}/>
+        </div>
+        );
   }
 
 export default App;
