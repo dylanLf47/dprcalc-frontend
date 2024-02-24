@@ -431,23 +431,23 @@ function Calc({theUserId}) {
         })
     }
 
-    useEffect(() => {
+    /* useEffect(() => {
         fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
         .then(res=>res.json())
         .then(result => setCharactersList(result)).catch((error) => console.log("There are no characters currently registered under the User Id: " + userId))
         return () => {
             console.log("Character Data Returned")
         }
-    },[listLength, userId]);
+    },[listLength, userId]); */
 
-    /* useEffect(() => {
+    useEffect(() => {
         fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/getAll")
         .then(res=>res.json())
         .then(result => setCharactersList(result))
         return () => {
             console.log("Character Data Returned")
         }
-    },[listLength]); */
+    },[listLength]);
 
     const deleteCharacter = (id) => {
         fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/remove/"+id,{
