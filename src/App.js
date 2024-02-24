@@ -431,15 +431,11 @@ function Calc({theUserId}) {
     }
 
     useEffect(() => {
-        try {
-            fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
-            .then(res=>res.json())
-            .then(result => setCharactersList(result))
-            return () => {
-                console.log("Character Data Returned")
-            }
-        } catch(e) {
-
+        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
+        .then(res=>res.json())
+        .then(result => setCharactersList(result)).catch((error) => "There are no characters currently registered under the User Id: " + userId)
+        return () => {
+            console.log("Character Data Returned")
         }
     },[listLength, userId]);
 
