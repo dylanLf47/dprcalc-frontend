@@ -412,7 +412,7 @@ function Calc({theUserId}) {
 
     const addCharacter = (e) => {
         e.preventDefault()
-        const player_character = {name, userId, description, crit_range: critRange, attack_mod: attackMod, num_of_attacks: numOfAttacks, has_adv: hasAdv, standard_die_list: standardDiceData, standard_dam_mod: standardDamageMod, first_hit_die_list: firstHitDiceData, 
+        const player_character = {name, username: userId, description, crit_range: critRange, attack_mod: attackMod, num_of_attacks: numOfAttacks, has_adv: hasAdv, standard_die_list: standardDiceData, standard_dam_mod: standardDamageMod, first_hit_die_list: firstHitDiceData, 
             first_hit_dam_mod: firstHitDamageMod, crit_die_list: criticalDiceData, crit_dam_mod: criticalDamageMod, gwm_check: gwmCheck, lucky_check: luckyCheck, elven_acc_check: eAccCheck, crusher_check: crusherCheck,
                 piercer_check: piercerCheck, piercer_die: piercerDie, piercer_reroll: piercerRerollWhen, stalkers_flurry_check: stalkersFlurryCheck, graze_check: grazeCheck, graze_mod: grazeMod, vex_check: vexCheck, has_bonus_action: hasBonusAction, 
                 attack_mod_bonus: attackModifierBonus, num_of_attacks_bonus: numOfAttacksBonus, has_adv_bonus: hasAdvBonus, standard_die_list_bonus: standardDiceBonusData, standard_dam_mod_bonus: standardDamageModBonus, 
@@ -433,7 +433,7 @@ function Calc({theUserId}) {
     useEffect(() => {
         fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
         .then(res=>res.json())
-        .then(result => setCharactersList(result)).catch((error) => "There are no characters currently registered under the User Id: " + userId)
+        .then(result => setCharactersList(result)).catch((error) => console.log("There are no characters currently registered under the User Id: " + userId))
         return () => {
             console.log("Character Data Returned")
         }
