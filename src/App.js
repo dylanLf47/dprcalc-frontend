@@ -21,7 +21,7 @@ function LogIn({theLogIn, logInClick}) {
         <h1 style={{margin: 0}}>DLF's DPR Calculator</h1>
         <div className='logInBox'>
             <div><b>Enter Your User ID</b></div>
-            <div><input type='text' placeholder="User ID" className={!/^[\w ,.'-]{0,20}$/.test(userID) ? "errorBorder":""} value={userID} onChange={(e) => {setUserID(e.target.value)}} maxLength={20} onMouseEnter={() => setUserIDHover(true)} onMouseLeave={() => setUserIDHover(false)}></input></div>
+            <div><input type='text' id="userLogInInput" placeholder="User ID" className={!/^[\w ,.'-]{0,20}$/.test(userID) ? "errorBorder":""} value={userID} onChange={(e) => {setUserID(e.target.value)}} maxLength={20} onMouseEnter={() => setUserIDHover(true)} onMouseLeave={() => setUserIDHover(false)}></input></div>
             {userIdHover && <span className='inputPromptLogIn'>User ID must include alphabetical/numerical characters and/or symbols including ,.'-</span>}
             <span>&nbsp;</span>
             <button onClick={() => update()} disabled={invalidInput}>Log In</button>
@@ -413,7 +413,7 @@ function Calc({theUserId}) {
     const addCharacter = (e) => {
         console.log(userId)
         e.preventDefault()
-        const player_character = {name, description, crit_range: critRange, attack_mod: attackMod, num_of_attacks: numOfAttacks, has_adv: hasAdv, standard_die_list: standardDiceData, standard_dam_mod: standardDamageMod, first_hit_die_list: firstHitDiceData, 
+        const player_character = {username: userId, name, description, crit_range: critRange, attack_mod: attackMod, num_of_attacks: numOfAttacks, has_adv: hasAdv, standard_die_list: standardDiceData, standard_dam_mod: standardDamageMod, first_hit_die_list: firstHitDiceData, 
             first_hit_dam_mod: firstHitDamageMod, crit_die_list: criticalDiceData, crit_dam_mod: criticalDamageMod, gwm_check: gwmCheck, lucky_check: luckyCheck, elven_acc_check: eAccCheck, crusher_check: crusherCheck,
                 piercer_check: piercerCheck, piercer_die: piercerDie, piercer_reroll: piercerRerollWhen, stalkers_flurry_check: stalkersFlurryCheck, graze_check: grazeCheck, graze_mod: grazeMod, vex_check: vexCheck, has_bonus_action: hasBonusAction, 
                 attack_mod_bonus: attackModifierBonus, num_of_attacks_bonus: numOfAttacksBonus, has_adv_bonus: hasAdvBonus, standard_die_list_bonus: standardDiceBonusData, standard_dam_mod_bonus: standardDamageModBonus, 
@@ -807,7 +807,7 @@ function Calc({theUserId}) {
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState("")
-    /* if (loggedIn === false) {
+    if (loggedIn === false) {
         return (
             <div className="App">
                 <LogIn theLogIn = {loggedIn} logInClick={(theLogIn, theUserId) => {setLoggedIn(!theLogIn); setCurrentUser(theUserId)}}/>
@@ -820,12 +820,7 @@ function App() {
             <Calc theUserId = {currentUser}/>
         </div>
         );
-    } */
-    return (
-        <div className="App">
-            <Calc theUserId = {currentUser}/>
-        </div>
-        );
+    }
   }
 
 export default App;
