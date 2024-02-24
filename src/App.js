@@ -483,7 +483,7 @@ function Calc({theUserId}) {
             tempArray[i+1] = Array(maxAC-minAC+1);
             tempArray[i+1][0] = <b>{pcList[i].name}</b>;
             for (let j = minAC; j <= maxAC; j++) {
-                const res = await fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/calc/" + pcList[i].id + "/" + j);
+                const res = await fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/calc/" + pcList[i].id + "/" + j);
                 const result = await res.json();
                 tempArray[i+1][j-minAC+1] = result;
             }
