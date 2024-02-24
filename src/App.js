@@ -420,7 +420,7 @@ function Calc({theUserId}) {
                 crit_die_list_bonus: criticalDiceBonusData, crit_dam_mod_bonus: criticalDamageModBonus, crusher_check_bonus: crusherCheckBonus, piercer_check_bonus: piercerCheckBonus, piercer_die_bonus: piercerDieBonus, piercer_reroll_bonus: piercerRerollWhenBonus, 
                 stalkers_flurry_check_bonus: stalkersFlurryCheckBonus, graze_check_bonus: grazeCheckBonus, graze_mod_bonus: grazeModBonus, vex_check_bonus: vexCheckBonus}
         console.log(player_character)
-        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/add",{
+        fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/add",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(player_character)
