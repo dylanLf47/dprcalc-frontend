@@ -122,7 +122,7 @@ function Dice({update, remove, gwfIsChecked, eaIsChecked, saIsChecked}) {
       );
 }
 
-function Calc({theUserId}) {
+function Calc({theUserId, logOut}) {
     const [username, setUsername] = useState(theUserId)
     const [name,setName] = useState('')
     const [description,setDescription] = useState('')
@@ -431,23 +431,23 @@ function Calc({theUserId}) {
         })
     }
 
-    /* useEffect(() => {
-        fetch("https://dlf-5e-dpr-calculator-backend.onrender.com/player_character/get/"+userId)
+    useEffect(() => {
+        fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/get/"+username)
         .then(res=>res.json())
-        .then(result => setCharactersList(result)).catch((error) => console.log("There are no characters currently registered under the User Id: " + userId))
+        .then(result => setCharactersList(result)).catch((error) => console.log("There are no characters currently registered under the User Id: " + username))
         return () => {
             console.log("Character Data Returned")
         }
-    },[listLength, userId]); */
+    },[listLength, username]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/getAll")
         .then(res=>res.json())
         .then(result => setCharactersList(result))
         return () => {
             console.log("Character Data Returned")
         }
-    },[listLength]);
+    },[listLength]); */
 
     const deleteCharacter = (id) => {
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/remove/"+id,{
@@ -458,6 +458,24 @@ function Calc({theUserId}) {
             setCharactersList(tempCharacters)
             let tempLength = listLength - 1
             setListLength(tempLength)
+
+            let tempCalcList = calculateList.filter(c => c.id !== id)
+            setCalculateList(tempCalcList)
+        });
+    }
+
+    const deleteCharactersByUsername = (username) => {
+        fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/removeByUser/"+username,{
+            method:"DELETE",
+            headers: {"Content-Type":"application/json"}
+        }).then(() => {
+            let tempCharacters = charactersList.filter(c => c.username !== username)
+            setCharactersList(tempCharacters)
+            let tempLength = tempCharacters.length
+            setListLength(tempLength)
+
+            let tempCalcList = calculateList.filter(c => c.username !== username)
+            setCalculateList(tempCalcList)
         });
     }
 
@@ -482,10 +500,14 @@ function Calc({theUserId}) {
         for (let i = 0; i < pcList.length; i++) {
             tempArray[i+1] = Array(maxAC-minAC+1);
             tempArray[i+1][0] = <b>{pcList[i].name}</b>;
+            try {
             for (let j = minAC; j <= maxAC; j++) {
-                const res = await fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/calc/" + pcList[i].id + "/" + j);
+                const res = await fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/calc/" + pcList[i].id + "/" + j)
                 const result = await res.json();
                 tempArray[i+1][j-minAC+1] = result;
+            }
+            } catch {
+                console.log("error")
             }
         }
         setDprFieldArray(tempArray)
@@ -518,6 +540,7 @@ function Calc({theUserId}) {
     return (
         <div>
             <h1 style={{margin: 0}}>DLF's DPR Calculator</h1>
+            <button className="logOutButton" onClick={() => {setUsername(null); logOut()}}>Log Out</button>
             <div>
                 <b>Name:</b>
                 <input type="text" id="name" className={!/^[A-Za-z ,.'-]{0,20}$/.test(name) ? "errorBorder":""} value={name} onChange={(e) => {setName(e.target.value)}} maxLength={20} onMouseEnter={() => setNameHover(true)} onMouseLeave={() => setNameHover(false)}></input>
@@ -729,6 +752,9 @@ function Calc({theUserId}) {
 
             <div className='bottomHalf'>
             <div className='pcMap'>
+                {/* <button onClick={() => checkAllCharacters()}>Check All</button> */}
+                <div className='usernameList'><b>{username}'s Characters</b></div>
+                <button className="deleteAll" onClick={() => deleteCharactersByUsername(username)} disabled={charactersList < 1}>Delete All</button>
                 {charactersList.map((pc) => (<div key={pc.id} className='pcRow'> 
                 <div className='pcInfo'><div style={{fontSize: 35}}><b>{pc.name}</b><br/></div> <div style={{fontSize: 20}}>{pc.description}<br/></div>
                 {!showDataList.includes(pc.id) && <span className="down-arrow" onClick={() => {setShowDataList([...showDataList, pc.id])}}>▾</span>}
@@ -807,6 +833,11 @@ function Calc({theUserId}) {
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState("")
+
+    const logOutUser = () => {
+        setLoggedIn(false)
+    }
+
     if (loggedIn === false) {
         return (
             <div className="App">
@@ -817,7 +848,7 @@ function App() {
     else {
         return (
         <div className="App">
-            <Calc theUserId = {currentUser}/>
+            <Calc theUserId = {currentUser} logOut = {() => logOutUser()}/>
         </div>
         );
     }

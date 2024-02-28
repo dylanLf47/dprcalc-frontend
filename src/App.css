@@ -263,3 +263,21 @@ table{
   width:95%;
   align-items: center;
 }
+
+.logOutButton{
+  position: absolute;
+  display: flex;
+  margin-left: 1%;
+}
+
+.deleteAll{
+  margin-left: 77.5%;
+  background-color: rgba(197, 3, 3, 0.65);
+}
+
+.usernameList{
+  overflow: auto;
+  white-space: nowrap;
+  flex-direction:row;
+  /* position: absolute; */
+}
