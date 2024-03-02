@@ -438,10 +438,9 @@ function Calc({theUserId, logOut}) {
         setLoadingData(true)
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/get/"+username)
         .then(res=>res.json())
-        .then(result => setCharactersList(result)).catch((error) => console.log("There are no characters currently registered under the User Id: " + username))
+        .then(result => setCharactersList(result)).then(setLoadingData(false)).catch((error) => console.log("There are no characters currently registered under the User Id: " + username))
         return () => {
             console.log("Character Data Returned")
-            setLoadingData(false)
         }
     },[listLength, username]);
 
