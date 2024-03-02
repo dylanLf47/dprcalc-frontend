@@ -800,7 +800,8 @@ function Calc({theUserId, logOut}) {
                     }
                     </div></div>}
                 </div>
-                <input type='checkbox' className='calcCheck' onChange={(e) => checkCharacter(pc, e.target.checked)} checked={this.checked}></input> 
+                <input type='checkbox' className='calcCheck' onChange={(e) => checkCharacter(pc, e.target.checked)} checked={calculateList.includes((c) => c.id === pc.id)}></input> 
+                {console.log(calculateList.includes((c) => c.id === pc.id))}
                 <button className='deletePc' onClick={() => deleteCharacter(pc.id)}><b>X</b></button>
                 </div>))}</div>}
             </div>
