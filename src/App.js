@@ -414,7 +414,7 @@ function Calc({theUserId, logOut}) {
     }
 
     const addCharacter = (e) => {
-        console.log(username)
+        setLoadingData(true)
         e.preventDefault()
         const player_character = {username, name, description, crit_range: critRange, attack_mod: attackMod, num_of_attacks: numOfAttacks, has_adv: hasAdv, standard_die_list: standardDiceData, standard_dam_mod: standardDamageMod, first_hit_die_list: firstHitDiceData, 
             first_hit_dam_mod: firstHitDamageMod, crit_die_list: criticalDiceData, crit_dam_mod: criticalDamageMod, gwm_check: gwmCheck, lucky_check: luckyCheck, elven_acc_check: eAccCheck, crusher_check: crusherCheck,
@@ -435,7 +435,6 @@ function Calc({theUserId, logOut}) {
     }
 
     useEffect(() => {
-        setLoadingData(true)
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/get/"+username)
         .then(res=>res.json())
         .then(result => setCharactersList(result)).then(setLoadingData(false)).catch((error) => console.log("There are no characters currently registered under the User Id: " + username))
@@ -454,6 +453,7 @@ function Calc({theUserId, logOut}) {
     },[listLength]); */
 
     const deleteCharacter = (id) => {
+        setLoadingData(true)
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/remove/"+id,{
             method:"DELETE",
             headers: {"Content-Type":"application/json"}
@@ -469,6 +469,7 @@ function Calc({theUserId, logOut}) {
     }
 
     const deleteCharactersByUsername = (username) => {
+        setLoadingData(true)
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/removeByUser/"+username,{
             method:"DELETE",
             headers: {"Content-Type":"application/json"}
