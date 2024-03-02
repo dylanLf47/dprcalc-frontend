@@ -289,7 +289,7 @@ function Calc({theUserId, logOut}) {
 
     const [dprFieldArray, setDprFieldArray] = useState("")
 
-    const [loadingData, setLoadingData] = useState(false)
+    const [loadingData, setLoadingData] = useState(true)
     const [calculating, setCalculating] = useState(false)
 
     const updateGwfChecked = () => {
