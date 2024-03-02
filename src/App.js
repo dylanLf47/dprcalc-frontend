@@ -289,6 +289,9 @@ function Calc({theUserId, logOut}) {
 
     const [dprFieldArray, setDprFieldArray] = useState("")
 
+    const [loadingData, setLoadingData] = useState(false)
+    const [calculating, setCalculating] = useState(false)
+
     const updateGwfChecked = () => {
         for (let i = 0; i < standardDiceData.length; i++) {
             standardDiceData[i].is_gwf = !gwfChecked
@@ -432,11 +435,13 @@ function Calc({theUserId, logOut}) {
     }
 
     useEffect(() => {
+        setLoadingData(true)
         fetch("https://dlf-5e-dprcalc-backend.onrender.com/player_character/get/"+username)
         .then(res=>res.json())
         .then(result => setCharactersList(result)).catch((error) => console.log("There are no characters currently registered under the User Id: " + username))
         return () => {
             console.log("Character Data Returned")
+            setLoadingData(false)
         }
     },[listLength, username]);
 
@@ -489,6 +494,7 @@ function Calc({theUserId, logOut}) {
     }
 
     const calculate = async (pcList, minAc, maxAc) => {
+        setCalculating(true)
         setDprFieldArray([]);
         let tempArray = Array(pcList.length + 1);
         tempArray[0] = Array(maxAC-minAC+1);
@@ -510,6 +516,7 @@ function Calc({theUserId, logOut}) {
                 console.log("error")
             }
         }
+        setCalculating(false)
         setDprFieldArray(tempArray)
     }
 
@@ -755,7 +762,8 @@ function Calc({theUserId, logOut}) {
                 {/* <button onClick={() => checkAllCharacters()}>Check All</button> */}
                 <div className='usernameList'><b>{username}'s Characters</b></div>
                 <button className="deleteAll" onClick={() => deleteCharactersByUsername(username)} disabled={charactersList < 1}>Delete All</button>
-                {charactersList.map((pc) => (<div key={pc.id} className='pcRow'> 
+                {loadingData && <b style={{fontSize: 20}}>Loading Data...</b>}
+                {!loadingData && <div>{charactersList.map((pc) => (<div key={pc.id} className='pcRow'> 
                 <div className='pcInfo'><div style={{fontSize: 35}}><b>{pc.name}</b><br/></div> <div style={{fontSize: 20}}>{pc.description}<br/></div>
                 {!showDataList.includes(pc.id) && <span className="down-arrow" onClick={() => {setShowDataList([...showDataList, pc.id])}}>▾</span>}
                 {showDataList.includes(pc.id) && <div className="down-arrow" onClick={() => {setShowDataList(showDataList.filter((data) => data !== pc.id))}}>▾<div style={{fontSize: 15}}>
@@ -794,7 +802,7 @@ function Calc({theUserId, logOut}) {
                 </div>
                 <input type='checkbox' className='calcCheck' onChange={(e) => checkCharacter(pc, e.target.checked)}></input> 
                 <button className='deletePc' onClick={() => deleteCharacter(pc.id)}><b>X</b></button>
-                </div>))}
+                </div>))}</div>}
             </div>
 
             <div className='calcDiv'>
@@ -811,7 +819,8 @@ function Calc({theUserId, logOut}) {
 
                 {/* <div className='dprField' dangerouslySetInnerHTML={{__html: dprText}}></div> */}
                 <div className='dprField'>
-                    <table>
+                    {calculating && <b style={{fontSize: 20}}>Calculating...</b>}
+                    {!calculating && <table>
                         <tbody>
                         {dprFieldArray.length > 1 && dprFieldArray.map((item, key) => {
                             return (
@@ -821,7 +830,7 @@ function Calc({theUserId, logOut}) {
                             )
                         })}
                         </tbody>
-                    </table>
+                    </table>}
                 </div>
             </div>
             </div>
